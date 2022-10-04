@@ -1,0 +1,56 @@
+<html>
+    <body>
+        <form id="form">
+            <label>Primeiro nome:</label><input type="text" name="primeiro_nome"/>
+            <br/>
+            <label>Ultimo nome:</label><input type="text" name="ultimo_nome"/>
+            <br/>
+            <label>Time:</label><input type="text" name="time_nome"/>
+            <br/>
+            <label>Posição:</label>
+            <select id ="myCombo">
+             <option value="bloqueador" selected >bloqueador</option>
+             <option value="levantador" >levantador</option>
+             <option value="cortador" >cortador</option>
+             <option value="defesa" >defesa</option>
+             <option value="libero" >libero</option>
+            </select>
+            <input type="submit" value="submit" />
+        </form>
+        <div><p id="resp"></p></div>
+        
+        
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript">
+            $('#form').submit(function(e) {
+                    e.preventDefault();
+
+                    var data = {
+                       primeiro: $('[name=primeiro_nome]').val(),
+                       ultimo:$('[name=ultimo_nome]').val(),
+                       time:$('[name=time_nome]').val(),
+                       combo: $('#myCombo option:selected').val()
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/volei',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        success: function(callback) {
+                            console.log(callback);
+                            $("#resp").append("Respondeu: " + callback.primeiro +'-'+ callback.ultimo +'-'+callback.time +'-'+callback.combo);
+                            $('#form').each (function(){this.reset();});
+                            //$('[primeiro=first_name]').val();
+                            //$('[ultimo=last_name]').val();
+                            //$('[time=time]').val();
+                        },
+                        error: function() {
+                            $(this).html("error!");
+                        }
+                    });
+                });
+        </script>
+    </body>
+</html>

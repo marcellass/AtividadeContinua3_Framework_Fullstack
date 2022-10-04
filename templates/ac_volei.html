@@ -40,7 +40,7 @@
                         data: JSON.stringify(data),
                         success: function(callback) {
                             console.log(callback);
-                            $("#resp").append("Respondeu: " + callback.primeiro +'-'+ callback.ultimo +'-'+callback.time +'-'+callback.combo);
+                            $("#resp").append("Respondeu: " + callback.primeiro +'-'+ callback.ultimo +'-'+callback.time +'-'+callback.combo + ' | ');
                             $('#form').each (function(){this.reset();});
                             //$('[primeiro=first_name]').val();
                             //$('[ultimo=last_name]').val();
